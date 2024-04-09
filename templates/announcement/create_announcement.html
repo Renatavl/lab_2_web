@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <title>Document</title>
+  {%load static%}
+  <link rel="stylesheet" href="{%static 'create.css' %}">
+</head>
+
+<body>
+  <header>
+    <div class="top-menu">
+      <h1 class="title">Announcements Web</h1>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/announcements/public">Public List</a></li>
+        {% if user.is_authenticated %}
+        <li>
+          <a href="/announcements/local">Local List</a>
+        </li>
+        <li>
+          <a href="/announcements/user">User List</a>
+        </li>
+        <li>
+          <a href="/announcements/create">Create</a>
+        </li>
+        {% endif %}
+
+
+        {% if user.is_authenticated %}
+        <li class="access side dropdown">
+          <a class="nav-link dropdown-toggle action_link" href="#" id="navbarDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Actions
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item logout" href="/logout">Logout</a>
+          </div>
+        </li>
+        {% else %}
+        <li class="access side"><a href="/login">Log In</a></li>
+        <li class="access"><a href="/register">Register</a></li>
+        {% endif %}
+
+
+      </ul>
+    </div>
+  </header>
+  <main>
+    <div class="block"></div>
+    <div class="form_container">
+      <form id="create-form">
+        {% csrf_token %}
+        <h2 class="form_title">Create Announcement</h2>
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" name="subject">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title">
+        <label for="content">Content</label>
+        <textarea name="content" cols="40" rows="10" required="" id="id_content" style="height: 101px;"></textarea>
+        <label for="content">Access</label>
+        <select name="access" id="id_access">
+          <option value="public" selected="">Public</option>
+          <option value="local">Local</option>
+        </select>
+        <input type="submit" value="Create Announcement">
+      </form>
+      <img src="../static/img/create_announcement.jpg" class="registration-img">
+    </div>
+    <span class="pencil">✎</span>
+    <span class="message"></span>
+    <span class="horn">📢</span>
+  </main>
+</body>
+<script src="{%static 'create.js'%}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
+  </script>
+
+</html>

@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}
+User Announcements 
+{% endblock title %}
+
+{% block body %}
+<style>
+    .root_list {
+      margin: 30px auto;
+      width: 75vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 25px;
+      
+  
+      border-radius: 8px;
+      background: #FFF;
+  
+      box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.10);
+    }
+  
+    h2 {
+      color: #023E8A;
+      margin-bottom: 25px;
+    }
+
+    .column_title span{
+      font-weight: 700;
+    }
+
+    .column_title {
+      background: rgba(163, 211, 255, 0.961) !important;
+    }
+
+    .list li{
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3,2fr)  repeat(2,3fr)  repeat(3,1fr);
+        gap:10px;
+        font-weight: 500;
+        font-size: 18px;
+        padding: 7px 10px;
+    }
+
+    .list a {
+        text-align: end;
+    }
+
+    li span, li strong {
+      color: #023E8A;
+    }
+
+    .title {
+        margin-left: 10px;
+    }
+
+    .content {
+        margin-left: -10px;
+    }
+
+    .access {
+        margin-left: -5px;
+    }
+
+    .author {
+        margin-left: 40px;
+    }
+
+    .date {
+        margin-left: 60px;
+    }
+
+    .list {
+        padding: 0;
+    }
+    .list li:nth-child(even) {background: rgba(190, 224, 254, 0.28)}
+    .list li:nth-child(odd) {background: rgba(163, 211, 255, 0.461);}
+  </style>
+
+
+<div class="wrapper_center">
+    <div class="root_list">
+<h2>Your Announcements</h2>
+
+<ul class="list">
+    <li class = "column_title">
+        <span class = "title">Title</span>
+        <span class = "content">Content</span>
+        <span class = "access">Access</span>
+        <span class = "author">Author</span>
+        <span class = "date">Date</span>
+        <span></span>
+        <span class = "actions">Actions</span>
+    </li>
+    {% for announcement in announcements %}
+        <li>
+            <strong>{{ announcement.title }}</strong>
+            <span>{{ announcement.content }}</span>
+            <span>{{ announcement.access }}</span>
+            <span>Created by: {{ announcement.user_profile.username }}</span>
+            <span>{{ announcement.create_date }}</span>
+            <a href="/announcement/{{ announcement.id }}/update">Edit</a>
+            <a href="/announcement/{{ announcement.id }}/">Open</a>
+            <a href="/announcement/{{ announcement.id }}/delete">Delete</a>
+        </li>
+    {% endfor %}
+</ul>
+</div>
+</div>
+{% endblock body%}
+
+
+
+
